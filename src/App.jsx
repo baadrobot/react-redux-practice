@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {useDispatch, useSelector} from 'react-redux';
 import { addCustomerAction, removeCustomerAction } from './store/customerReducer';
+import {fetchCustomers} from './asyncActions/customer.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,12 +40,13 @@ function App() {
         {/* customers */}
         <div style={{display: "flex"}}>
           <button onClick={() => addCustomer(prompt())}>Add customer</button>
+          <button onClick={() => dispatch(fetchCustomers())}>Fetch all customers</button>
         </div>
         {selectCustomers.length > 0
           ?
           <div>
             {selectCustomers.map(customer =>
-              <div onClick={() => removeCustomer(customer)}>{customer.name}</div>
+              <div key={customer.id} onClick={() => removeCustomer(customer)}>{customer.name}</div>
             )}
           </div>
           :
